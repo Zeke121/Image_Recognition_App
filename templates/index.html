@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Vision Hub</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <div class="logo-title">AI Vision</div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Models</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="cta-button" onclick="document.getElementById('imageUpload').click();">Upload & Analyze</button>
+        </div>
+    </header>
+
+    <section class="logo-carousel-section">
+        <div class="logo-carousel">
+            <div class="carousel-track">
+                {% for logo in logos %}
+                <div class="logo-item"><img src="{{ logo.path }}" alt="{{ logo.name }}"></div>
+                {% endfor %}
+                <!-- Duplicate for seamless scroll -->
+                {% for logo in logos %}
+                <div class="logo-item"><img src="{{ logo.path }}" alt="{{ logo.name }}"></div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <div class="container">
+            <div class="main-title-container">
+                <div class="title-accent-cubes">
+                    <div></div><div></div>
+                </div>
+                <h1>IMAGE RECOGNITION</h1>
+            </div>
+            
+            <div class="content-area">
+                <p class="tagline">
+                    Upload an image to detect objects using advanced AI models. <br>
+                    Experience the power of computer vision, instantly.
+                </p>
+
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <input type="file" id="imageUpload" name="file" accept="image/png, image/jpeg, image/jpg" style="display: none;">
+                    <!-- A more styled button will trigger the click on imageUpload -->
+                </form>
+                <button class="upload-styled-button" onclick="document.getElementById('imageUpload').click();">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M9 16h6v-6h4l-7-7-7 7h4v6zm-4 2h14v2H5v-2z"/></svg>
+                    Select Image
+                </button>
+
+
+                <div id="loadingIndicator" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Analyzing image...</p>
+                </div>
+                <div id="errorMessages" class="error-message" style="display: none;"></div>
+
+                <div class="results-container" id="resultsContainer" style="display: none;">
+                    <div class="image-display">
+                        <h2>Original Image</h2>
+                        <img id="originalImage" src="#" alt="Original Image">
+                    </div>
+                    <div class="image-display">
+                        <h2>Processed Image</h2>
+                        <img id="processedImage" src="#" alt="Processed Image with Detections">
+                    </div>
+                </div>
+                 <div id="detectionDetails" class="detection-details-container" style="display:none;">
+                    <h2>Detection Details:</h2>
+                    <ul id="detectionList"></ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p class="footer-left">At AI Vision Hub, we specialize in cutting-edge image recognition solutions.</p>
+            <p class="footer-right">*ESTABLISHED — 2024 <br> INNOVATION LABS, GLOBAL</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
